@@ -3,57 +3,52 @@ from openai_api import extract_food_from_image, chatgpt
 
 
 def main():
-    st.title("Refriegerator Chef 🧑‍🍳🍽️")
+    st.title("Refrigerator Chef 🧑‍🍳🍽️")
 
-    # User input via Streamlit widgets
-    cuisine = st.selectbox(
-        "Are you in the mood for any particular cuisine today?",
-        ["Italian", "Mexican", "Asian", "Other"],
-        index=0,
-    )
-    diet = st.selectbox(
-        "Do you have any dietary restrictions or preferences?",
-        ["None", "Vegetarian", "Vegan", "Gluten-Free", "Low-Carb"],
-        index=0,
-    )
-    flavor = st.selectbox(
-        "What kind of flavors are you craving today?",
-        ["Spicy", "Sweet", "Savory", "Mix"],
-        index=2,
-    )
-    meal_type = st.selectbox(
-        "Are you looking for something light or hearty?",
-        ["Light (Salad, Sandwich)", "Hearty (Pasta, Steak)"],
-        index=1,
-    )
+    st.markdown("## Let's find the perfect meal for you today! 🍜")
+    st.markdown("Tell us about your preferences and what's in your fridge.")
+
+    with st.expander("Set Your Food Preferences"):
+        cuisine = st.selectbox(
+            "Cuisine Preference:",
+            ["Italian", "Mexican", "Asian", "Other"],
+            index=0,
+        )
+        diet = st.selectbox(
+            "Dietary Restrictions:",
+            ["None", "Vegetarian", "Vegan", "Gluten-Free", "Low-Carb"],
+            index=0,
+        )
+        flavor = st.selectbox(
+            "Flavor Profile:",
+            ["Spicy", "Sweet", "Savory", "Mix"],
+            index=2,
+        )
+        meal_type = st.selectbox(
+            "Meal Type:",
+            ["Light (Salad, Sandwich)", "Hearty (Pasta, Steak)"],
+            index=1,
+        )
 
     preferences = (
-        f"\nYour Food Preferences:\n"
         f"Cuisine Preference: {cuisine}\n"
         f"Dietary Restrictions: {diet}\n"
         f"Flavor Profile: {flavor}\n"
         f"Meal Type: {meal_type}"
     )
 
-    # Image link input
+    st.markdown("## Now, show us what's in your fridge! 📸")
     image_link = st.text_input(
         "Enter the link to an image of the contents of your fridge:",
         "https://healsview.com/wp-content/uploads/2023/10/open-fridge-or-1024x683.jpg",
     )
 
     if st.button("Find Recipe"):
-        # Uncomment and use the appropriate function calls if these are actual functions in your environment
         ingredients = extract_food_from_image(image_link)
-
-        print(ingredients)
-        # Create two columns
+        
         col1, col2 = st.columns(2)
-
-        # First column for the image
         with col1:
             st.image(image_link, caption="Image from URL", use_column_width=True)
-
-        # Second column for the markdown text
         with col2:
             st.markdown(f"**Ingredients in your fridge:**\n{ingredients}")
 
@@ -71,11 +66,8 @@ def main():
 
         response = chatgpt(main_prompt.strip())
 
-        print(response)
+        st.markdown("## Your Custom Recipe 📖")
         st.markdown(response)
-
-        # Placeholder response
-        # st.text("This is where the recipe response would appear.")
 
 
 if __name__ == "__main__":
