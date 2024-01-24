@@ -10,4 +10,4 @@ Refrigerator Chef is a Streamlit-based web application that helps you find the p
 
 ## Screenshot
 
-![Screenshot of Refrigerator Chef](path/to/screenshot.png)
+![Screenshot of Refrigerator Chef](screenshot.png)
