@@ -76,7 +76,7 @@ def test_vision_api():
 
 
 def extract_food_from_image(image_path):
-    response = vision_api([image_path], "What’s in this image? Do not generate any openings other than the list of foods in the image.")
+    response = vision_api([image_path], "What food are in the refrigerator? Do NOT generate any openings other than the list of foods in the image. ONLY GIVE ME THE INGREDIENTS in bullet points")
     return response
 
 
