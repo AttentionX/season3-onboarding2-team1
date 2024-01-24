@@ -1,14 +1,14 @@
 import base64
 import os
 
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
+
 
 from openai import OpenAI
 
-# client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
-client = OpenAI(api_key="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")
+client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 
 
 
@@ -44,9 +44,8 @@ def chatgpt(query, model="gpt-4-1106-preview"):
     return response 
 
 def test_vision_api():
-    client = OpenAI(
-        api_key="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"
-    )
+    # client = OpenAI()
+    client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
@@ -97,7 +96,6 @@ def vision_api(images, prompt):
 
 
 if __name__ == "__main__":
-    # response = test_vision_api()
     # response = test_gpt()
     # print(response)
 
