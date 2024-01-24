@@ -1,5 +1,5 @@
 import click
-from openai_api import extract_food_from_image
+from openai_api import extract_food_from_image, chatgpt
 
 @click.command()
 @click.option(
@@ -30,17 +30,18 @@ def main(cuisine, diet, flavor, meal_type):
     """
     A CLI application to find out your food preferences for today.
     """
-    click.echo("\nYour Food Preferences:")
-    click.echo(f"Cuisine Preference: {cuisine}")
-    click.echo(f"Dietary Restrictions: {diet}")
-    click.echo(f"Flavor Profile: {flavor}")
-    click.echo(f"Meal Type: {meal_type}")
+    preferences = (
+        f"\nYour Food Preferences:\n"
+        f"Cuisine Preference: {cuisine}\n"
+        f"Dietary Restrictions: {diet}\n"
+        f"Flavor Profile: {flavor}\n"
+        f"Meal Type: {meal_type}"
+    )
+
 
     image_link = "https://healsview.com/wp-content/uploads/2023/10/open-fridge-or-1024x683.jpg"
-    response = extract_food_from_image(image_link)
-    print(response)
+    ingredients = extract_food_from_image(image_link)
     
-    import pdb; pdb.set_trace()
     main_prompt = """
     Given my food preferences and ingredients I have in my fridge, what should I cook for dinner tonight? Make me a full recipe.
 
@@ -50,6 +51,10 @@ def main(cuisine, diet, flavor, meal_type):
     Ingridients I have in my fridge:
     {ingredients}
     """
+    
+    main_prompt = main_prompt.format(preferences=preferences, ingredients=ingredients)
+    response = chatgpt(main_prompt.strip())
+    print(response)
 
 
 if __name__ == "__main__":
