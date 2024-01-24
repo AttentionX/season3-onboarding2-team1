@@ -76,11 +76,39 @@ def test_vision_api():
 
 
 def extract_food_from_image(image_path):
-    response = vision_api([image_path], "What food are in the refrigerator? Do NOT generate any openings other than the list of foods in the image. ONLY GIVE ME THE INGREDIENTS in bullet points")
+    response = vision_api(
+        [image_path],
+        "What food are in the refrigerator? Do NOT generate any openings other than the list of foods in the image. ONLY GIVE ME THE INGREDIENTS in bullet points",
+    )
+    return response
+
+
+def extract_food_from_up_image(image):
+    response = vision_api(
+        [image],
+        "What food are in the refrigerator? Do NOT generate any openings other than the list of foods in the image. ONLY GIVE ME THE INGREDIENTS in bullet points",
+    )
     return response
 
 
 def vision_api(images, prompt):
+    content = [{"type": "text", "text": prompt}]
+    for image in images:
+        content.append({"type": "image_url", "image_url": image})
+    response = client.chat.completions.create(
+        model="gpt-4-vision-preview",
+        messages=[
+            {
+                "role": "user",
+                "content": content,
+            }
+        ],
+        max_tokens=1000,
+    )
+    return response.choices[0].message.content
+
+
+def vision_api_image(images, prompt):
     content = [{"type": "text", "text": prompt}]
     for image in images:
         content.append({"type": "image_url", "image_url": image})
