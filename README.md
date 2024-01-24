@@ -7,3 +7,7 @@ Refrigerator Chef is a Streamlit-based web application that helps you find the p
 - Select your desired cuisine, dietary restrictions, flavor profile, and meal type.
 - Upload an image of your refrigerator's contents.
 - Generate a custom recipe based on your preferences and available ingredients.
+
+## Screenshot
+
+![Screenshot of Refrigerator Chef](path/to/screenshot.png)
