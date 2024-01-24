@@ -1,5 +1,5 @@
 import click
-
+from openai_api import extract_food_from_image
 
 @click.command()
 @click.option(
@@ -35,6 +35,21 @@ def main(cuisine, diet, flavor, meal_type):
     click.echo(f"Dietary Restrictions: {diet}")
     click.echo(f"Flavor Profile: {flavor}")
     click.echo(f"Meal Type: {meal_type}")
+
+    image_link = "https://healsview.com/wp-content/uploads/2023/10/open-fridge-or-1024x683.jpg"
+    response = extract_food_from_image(image_link)
+    print(response)
+    
+    import pdb; pdb.set_trace()
+    main_prompt = """
+    Given my food preferences and ingredients I have in my fridge, what should I cook for dinner tonight? Make me a full recipe.
+
+    My food preferences:
+    {preferences}
+
+    Ingridients I have in my fridge:
+    {ingredients}
+    """
 
 
 if __name__ == "__main__":
