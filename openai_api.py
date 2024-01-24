@@ -68,6 +68,11 @@ def test_vision_api():
     return response.choices[0].message.content
 
 
+def extract_food_from_image(image_path):
+    response = vision_api([image_path], "What food are in the refrigerator? Do NOT generate any openings other than the list of foods in the image. ONLY GIVE ME THE INGREDIENTS in bullet points")
+    return response
+
+
 def vision_api(images, prompt):
     content = [{
         "type": "text",
