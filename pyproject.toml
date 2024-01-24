@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "season3-onboarding2-team1"
+version = "0.1.0"
+description = ""
+authors = ["Scott Suk <scottsuk0306@gmail.com>"]
+readme = "README.md"
+packages = [{include = "season3_onboarding2_team1"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^1.9.0"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
